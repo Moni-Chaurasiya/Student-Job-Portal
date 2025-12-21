@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
+
 
 const StudentDashboard = () => {
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ const StudentDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="student" userName={user?.fullName} />
+   
 
       <div className="max-w-7xl mx-auto p-6">
         {/* Welcome Banner */}

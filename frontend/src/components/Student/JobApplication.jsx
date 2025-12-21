@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
-
 const JobApplication = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -111,7 +109,6 @@ const JobApplication = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="student" userName={user?.fullName} />
       
       <div className="max-w-4xl mx-auto p-6">
         {/* Job Info Banner */}

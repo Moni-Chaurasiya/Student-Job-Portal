@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../Navbar';
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -12,7 +11,6 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="student" userName={user?.fullName} />
 
       <div className="max-w-4xl mx-auto p-6">
         <div className="bg-white rounded-lg shadow-lg p-8">

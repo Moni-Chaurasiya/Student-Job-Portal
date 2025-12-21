@@ -2,12 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
-
 const BrowseJobs = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
@@ -79,7 +75,7 @@ const BrowseJobs = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="student" userName={user?.fullName} />
+    
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}

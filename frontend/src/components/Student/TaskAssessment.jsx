@@ -1,14 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef,useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
 
 const TaskAssessment = () => {
   const { assignmentId } = useParams();
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-
   const [assignment, setAssignment] = useState(null);
   const [template, setTemplate] = useState(null);
   const [answers, setAnswers] = useState([]);
@@ -26,59 +23,56 @@ const TaskAssessment = () => {
         clearInterval(timerInterval.current);
       }
     };
-  }, [assignmentId]);
+  }, [fetchAssignment]);
 
-  const fetchAssignment = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      
-      // Start the task if not started
-      const startResponse = await axios.put(
-        `http://localhost:5000/api/task-assignments/${assignmentId}/start`, 
-        {}, 
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+const fetchAssignment = useCallback(async () => {
+  try {
+    const token = localStorage.getItem('token');
 
-      // Fetch assignments with populated template
-      const response = await axios.get(
-        `http://localhost:5000/api/task-assignments/my-assignments`, 
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+    await axios.put(
+      `http://localhost:5000/api/task-assignments/${assignmentId}/start`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-      const currentAssignment = response.data.find(a => a._id === assignmentId);
-      
-      if (!currentAssignment) {
-        toast.error('Assignment not found');
-        navigate('/student/assessments');
-        return;
-      }
+    const response = await axios.get(
+      `http://localhost:5000/api/task-assignments/my-assignments`,
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
 
-      setAssignment(currentAssignment);
-      setTemplate(currentAssignment.taskTemplateId);
+    const currentAssignment = response.data.find(
+      (a) => a._id === assignmentId
+    );
 
-      // Initialize answers array
-      const initialAnswers = currentAssignment.taskTemplateId.questions.map(q => ({
+    if (!currentAssignment) {
+      toast.error('Assignment not found');
+      navigate('/student/assessments');
+      return;
+    }
+
+    setAssignment(currentAssignment);
+    setTemplate(currentAssignment.taskTemplateId);
+
+    const initialAnswers = currentAssignment.taskTemplateId.questions.map(
+      (q) => ({
         questionId: q._id,
         answer: ''
-      }));
-      setAnswers(initialAnswers);
+      })
+    );
+    setAnswers(initialAnswers);
 
-      // Start timer if expiry time is set
-      if (currentAssignment.expiresAt) {
-        startTimer(currentAssignment.expiresAt);
-      }
-
-    } catch (error) {
-      if (error.response?.status === 400) {
-        toast.error(error.response.data.message);
-      } else {
-        toast.error('Failed to load assignment');
-      }
-      navigate('/student/assessments');
-    } finally {
-      setLoading(false);
+    if (currentAssignment.expiresAt) {
+      startTimer(currentAssignment.expiresAt);
     }
-  };
+  } catch (error) {
+    toast.error(
+      error.response?.data?.message || 'Failed to load assignment'
+    );
+    navigate('/student/assessments');
+  } finally {
+    setLoading(false);
+  }
+}, [assignmentId, navigate]);
 
   const startTimer = (expiryTime) => {
     const updateTimer = () => {
@@ -185,7 +179,6 @@ const TaskAssessment = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="student" userName={user?.fullName} />
 
       {/* Floating Timer */}
       <div className="fixed top-20 right-4 bg-white shadow-2xl rounded-xl p-4 z-50 border-2 border-gray-200">

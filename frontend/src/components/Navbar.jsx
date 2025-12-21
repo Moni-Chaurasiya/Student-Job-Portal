@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-
+import {useAuth} from '../context/AuthContext'
 const Navbar = ({ role, userName }) => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const {logout}= useAuth();
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('role');
-    localStorage.removeItem('user');
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('role');
+    // localStorage.removeItem('user');
+    logout();
     toast.success('Logged out successfully');
     navigate(role === 'admin' ? '/admin/login' : '/student/login');
   };

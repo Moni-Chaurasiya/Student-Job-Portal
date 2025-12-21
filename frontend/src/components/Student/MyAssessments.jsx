@@ -6,7 +6,6 @@ import Navbar from '../Navbar';
 
 const MyAssessments = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -64,8 +63,6 @@ const MyAssessments = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="student" userName={user?.fullName} />
-
       <div className="max-w-7xl mx-auto p-6">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-6">My Assessments</h1>

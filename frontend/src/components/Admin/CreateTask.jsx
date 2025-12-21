@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
 
 const CreateTask = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const user = JSON.parse(localStorage.getItem('user'));
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -72,8 +70,6 @@ const CreateTask = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="admin" userName={user?.fullName} />
-
       <div className="max-w-4xl mx-auto p-6">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-8">Create New Task</h1>

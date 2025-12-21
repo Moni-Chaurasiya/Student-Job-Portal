@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  
+  const navigate = useNavigate();  
   const [stats, setStats] = useState({ total: 0, completed: 0, inProgress: 0 });
   const [applications, setApplications] = useState([]);
   const [taskTemplates, setTaskTemplates] = useState([]);
@@ -61,7 +58,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="admin" userName={user?.fullName} />
 
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}

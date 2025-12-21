@@ -2,13 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
 
 const ViewSubmissions = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  
   const [submissions, setSubmissions] = useState([]);
   const [studentInfo, setStudentInfo] = useState(null);
   const [selectedSubmission, setSelectedSubmission] = useState(null);
@@ -43,8 +40,7 @@ const ViewSubmissions = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="admin" userName={user?.fullName} />
-
+ 
       <div className="max-w-6xl mx-auto p-6">
         <div className="mb-6">
           <button

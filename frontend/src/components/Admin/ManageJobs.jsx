@@ -6,8 +6,6 @@ import Navbar from '../Navbar';
 
 const ManageJobs = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  
   const [jobs, setJobs] = useState([]);
   const [stats, setStats] = useState({ totalJobs: 0, activeJobs: 0, totalApplications: 0 });
   const [loading, setLoading] = useState(true);
@@ -94,8 +92,6 @@ const ManageJobs = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="admin" userName={user?.fullName} />
-
       <div className="max-w-7xl mx-auto p-6">
         {/* Header */}
         <div className="mb-8">

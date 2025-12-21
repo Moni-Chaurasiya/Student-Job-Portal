@@ -6,8 +6,6 @@ import Navbar from '../Navbar';
 
 const PostJob = () => {
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-
   const [formData, setFormData] = useState({
     title: '',
     company: 'Our Company',
@@ -81,8 +79,6 @@ const PostJob = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="admin" userName={user?.fullName} />
-
       <div className="max-w-5xl mx-auto p-6">
         <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="mb-8">

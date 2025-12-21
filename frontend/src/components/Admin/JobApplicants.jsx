@@ -1,15 +1,11 @@
-// ============= src/components/Admin/JobApplicants.jsx =============
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import Navbar from '../Navbar';
 
 const JobApplicants = () => {
   const { jobId } = useParams();
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
-  
+  const navigate = useNavigate();  
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -45,8 +41,6 @@ const JobApplicants = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Navbar role="admin" userName={user?.fullName} />
-
       <div className="max-w-7xl mx-auto p-6">
         {/* Back Button */}
         <button
